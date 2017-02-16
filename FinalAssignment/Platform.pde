@@ -24,12 +24,8 @@ class Platform
   
   void display ()
   {
-    fill(#35DBFA);
-    stroke(#35DBFA);
-    rect(x, y, l, 25);
     fill(c);
     stroke(c);
-    rect(x, y + 26, l, 25);
+    rect(x, y, l, 25);
   }
-  
 }
