@@ -33,7 +33,7 @@ class Platform
 
 class Ch
 {
-  int x, y, l;
+  int x, y, l, lastDir;
   color c;
   float vx, vy;
   boolean onJump = false;
@@ -80,16 +80,27 @@ class Ch
     }
     if (keyPressed && key == CODED)
       if (keyCode == RIGHT)
+      {
         x += 2;
+        lastDir = 2;
+      }
       else if (keyCode == LEFT)
+      {
         x -= 2;
+        lastDir = -2;
+      }
       else if (keyCode == UP && !onJump)
       {
         onJump = true;
         vy = -10;
       }
+    
+    if (onJump)
+      x += lastDir;
     y += vy;
+    this.display();
   }
+
 }
 
 
@@ -126,6 +137,13 @@ void setup ()
   size(1100, 700);
   println("Game res = " + width + " x " + height);
   
+}
+
+void keyReleased()
+{
+  if (key == CODED)
+    if (keyCode == LEFT || keyCode == RIGHT)  
+      q.lastDir = 0;
 }
 
 void draw ()
