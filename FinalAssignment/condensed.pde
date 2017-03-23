@@ -77,6 +77,7 @@ class Ch
       vy = 0;
       y = p.y - 26;
       onJump = false;
+      x += lastDir;
     }
     if (keyPressed && key == CODED)
       if (keyCode == RIGHT)
@@ -97,7 +98,8 @@ class Ch
     
     if (onJump)
       x += lastDir;
-    y += vy;
+    if (!onPlatform(p))
+      y += vy;
     this.display();
   }
 
@@ -154,5 +156,4 @@ void draw ()
   {
     q.move(levelOne.platformList[i]);
   }
-  q.display();
 }
