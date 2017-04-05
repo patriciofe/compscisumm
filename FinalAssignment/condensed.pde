@@ -79,6 +79,14 @@ class Ch
       onJump = false;
       x += lastDir;
     }
+    if (x > width / 2)
+    {
+      x = (width / 2) - 1;
+      levelList[currentLvl].scroll(lastDir);
+    }
+      
+      
+      
     if (keyPressed && key == CODED)
       if (keyCode == RIGHT)
       {
@@ -126,13 +134,24 @@ class Level
       platformList[i].display();
     }
   }
+  
+  void scroll (int forward)
+  {
+    for (int i = 0; i < platformList.length; i++)
+      if (q.lastDir == 2)
+        platformList[i].x -= 2;
+      else if (q.lastDir == -2)
+        platformList[i].x += 2;
+  }
 }
 
 
 
 Ch q = new Ch(300, 100);  // Main Character
-Platform [] one = {new Platform(300, 600, 200), new Platform(200, 500, 113)};
+Platform [] one = {new Platform(300, 600, 400), new Platform(200, 500, 113)};
 Level levelOne = new Level(one);
+Level[] levelList = {levelOne};
+int currentLvl = 0;
 
 void setup ()
 {
