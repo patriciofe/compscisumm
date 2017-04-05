@@ -63,7 +63,7 @@ class Ch
   
   boolean onPlatform(Platform p)
   {
-    if (x + l / 2 >= p.x && x + l / 2 <= p.x + p.l && y + l >= p.y - 1 && y <= p.y + 50)
+    if (x + l >= p.x && x <= p.x + p.l && y + l >= p.y - 1 && y <= p.y + 50)
       return true;
     else
       return false;
@@ -82,9 +82,9 @@ class Ch
     if (x > width / 2)
     {
       x = (width / 2) - 1;
-      levelList[currentLvl].scroll(lastDir);
+      levelList[screen].scroll(lastDir);
     }
-      
+     
       
       
     if (keyPressed && key == CODED)
@@ -117,18 +117,22 @@ class Ch
 
 class Level
 {
-  Platform[] platformList;  
-  Level (Platform[] platformList)
+  Platform[] platformList;
+  color bgColor;
+  
+  Level (Platform[] platformList, color bgColor)
   {
     this.platformList = new Platform[platformList.length];
     for (int i = 0; i < platformList.length; i++)
     {
       this.platformList[i] = platformList[i];
     }
+    this.bgColor = bgColor;
   }
   
   void display ()
   {
+    background(bgColor);
     for (int i = 0; i < platformList.length; i++)
     {
       platformList[i].display();
@@ -149,9 +153,9 @@ class Level
 
 Ch q = new Ch(300, 100);  // Main Character
 Platform [] one = {new Platform(300, 600, 400), new Platform(200, 500, 113)};
-Level levelOne = new Level(one);
+Level levelOne = new Level(one, #35DBFA);
 Level[] levelList = {levelOne};
-int currentLvl = 0;
+int screen = 0;
 
 void setup ()
 {
@@ -170,9 +174,16 @@ void keyReleased()
 void draw ()
 {
   background(#35DBFA); // Display all platforms (should use
-  levelOne.display();
-  for (int i = 0; i < levelOne.platformList.length; i++)
+  if (screen == -1)
   {
-    q.move(levelOne.platformList[i]);
+    
+  }
+  if (screen >= 0)
+  {
+    levelList[screen].display();
+    for (int i = 0; i < levelList[screen].platformList.length; i++)
+    {
+      q.move(levelList[screen].platformList[i]);
+    }
   }
 }
